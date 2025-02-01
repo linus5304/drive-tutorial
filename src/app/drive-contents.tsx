@@ -9,9 +9,8 @@ import { FileRow, FolderRow } from "./file-row"
 export default function DriveContents(props: {
   files: typeof filesTable.$inferSelect[];
   folders: typeof foldersTable.$inferSelect[];
+  parents: typeof foldersTable.$inferSelect[];
 }) {
-
-  const breadcrumbs: unknown[] = []
 
   const handleUpload = () => {
     alert("Upload functionality would be implemented here")
@@ -28,7 +27,7 @@ export default function DriveContents(props: {
             >
               My Drive
             </Link>
-            {breadcrumbs.map((folder, index) => (
+            {props.parents.map((folder, index) => (
               <div key={folder.id} className="flex items-center">
                 <ChevronRight className="mx-2 text-gray-500" size={16} />
                 <Link
