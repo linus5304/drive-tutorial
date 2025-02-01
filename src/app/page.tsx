@@ -1,10 +1,5 @@
-import { db } from "~/server/db"
-import { filesTable, foldersTable } from "~/server/db/schema"
-import DriveContents from "./drive-contents"
 
-export default async function GoogleDriveClone() {
-  const files = await db.select().from(filesTable)
-  const folders = await db.select().from(foldersTable)
+export default async function HomePage() {
 
-  return <DriveContents files={files} folders={folders} />
+  return <div>Please subscribe to my newsletter</div>
 }
