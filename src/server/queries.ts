@@ -24,6 +24,13 @@ export const QUERIES = {
         }
         return parents
     },
+    getFolderById: async (folderId: number) => {
+        const folder = await db.select().from(foldersTable).where(eq(foldersTable.id, folderId))
+        if (!folder[0]) {
+            throw new Error("Folder not found")
+        }
+        return folder[0]
+    }
 }
 
 export const MUTATIONS = {
@@ -38,6 +45,9 @@ export const MUTATIONS = {
     }) => {
         const { file, userId } = input
 
-        return db.insert(filesTable).values(file)
+        return db.insert(filesTable).values({
+            ...file,
+            ownerId: userId
+        })
     }
 }
