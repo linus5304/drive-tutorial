@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   :root {
     --background: 222.2 84% 4.9%;
@@ -34,4 +38,3 @@ body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
 }
-
