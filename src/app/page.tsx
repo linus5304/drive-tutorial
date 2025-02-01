@@ -8,5 +8,3 @@ export default async function GoogleDriveClone() {
 
   return <DriveContents files={files} folders={folders} />
 }
-
-
