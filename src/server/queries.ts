@@ -1,7 +1,7 @@
 import "server-only"
 
 import { db } from "~/server/db"
-import { filesTable, foldersTable } from "~/server/db/schema"
+import { DB_FileType, filesTable, foldersTable } from "~/server/db/schema"
 import { eq } from "drizzle-orm"
 
 export const QUERIES = {
@@ -24,4 +24,20 @@ export const QUERIES = {
         }
         return parents
     },
+}
+
+export const MUTATIONS = {
+    createFile: async (input: {
+        file: {
+            name: string,
+            url: string,
+            parent: number,
+            size: number
+        },
+        userId: string
+    }) => {
+        const { file, userId } = input
+
+        return db.insert(filesTable).values(file)
+    }
 }

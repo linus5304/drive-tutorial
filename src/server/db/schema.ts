@@ -16,6 +16,8 @@ export const filesTable = createTable('files_table', {
   ]
 });
 
+export type DB_FileType = typeof filesTable.$inferSelect;
+
 export const foldersTable = createTable('folders_table', {
   id: bigint("id", { mode: 'number', unsigned: true }).primaryKey().autoincrement(),
   name: text("name").notNull(),
@@ -25,3 +27,5 @@ export const foldersTable = createTable('folders_table', {
     index("parent_index").on(t.parent)
   ]
 });
+
+export type DB_FolderType = typeof foldersTable.$inferSelect;
