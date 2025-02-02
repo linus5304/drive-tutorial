@@ -1,7 +1,7 @@
 import "server-only"
 
 import { db } from "~/server/db"
-import { DB_FileType, filesTable, foldersTable } from "~/server/db/schema"
+import { filesTable, foldersTable } from "~/server/db/schema"
 import { eq } from "drizzle-orm"
 
 export const QUERIES = {

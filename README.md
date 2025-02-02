@@ -7,5 +7,11 @@
 - [x] Add auth
 - [x] Add file uploading
 - [x] Add analytics (posthog)
-- [ ] Add delete
+- [x] Add delete
 - [ ] Real homepage + onboarding
+
+## Fun followups
+
+### Folder deletion
+
+Make sure you fetch all of the folder that have it as a parent and their children too
