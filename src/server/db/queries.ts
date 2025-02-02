@@ -2,7 +2,7 @@ import "server-only"
 
 import { db } from "~/server/db"
 import { filesTable, foldersTable } from "~/server/db/schema"
-import { eq } from "drizzle-orm"
+import { and, eq, isNull } from "drizzle-orm"
 
 export const QUERIES = {
     getFiles: async (folderId: number) => {
@@ -30,6 +30,15 @@ export const QUERIES = {
             throw new Error("Folder not found")
         }
         return folder[0]
+    },
+    getRootFolderForUser: async (userId: string) => {
+        const folder = await db
+            .select()
+            .from(foldersTable)
+            .where(and(eq(foldersTable.ownerId, userId), isNull(foldersTable.parent)))
+            .orderBy(foldersTable.id)
+
+        return folder[0]
     }
 }
 
@@ -49,5 +58,33 @@ export const MUTATIONS = {
             ...file,
             ownerId: userId
         })
+    },
+    onboardUser: async (userId: string) => {
+        const rootFolder = await db.insert(foldersTable).values({
+            name: "Root",
+            ownerId: userId,
+            parent: null
+        }).$returningId()
+        const rootFolderId = rootFolder[0]!.id
+
+        await db.insert(foldersTable).values([
+            {
+                name: "Trash",
+                ownerId: userId,
+                parent: rootFolderId
+            },
+            {
+                name: "Shared",
+                ownerId: userId,
+                parent: rootFolderId
+            },
+            {
+                name: "Documents",
+                ownerId: userId,
+                parent: rootFolderId
+            }
+        ])
+
+        return rootFolderId
     }
 }

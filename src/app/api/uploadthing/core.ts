@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { z } from "zod";
-import { MUTATIONS, QUERIES } from "~/server/queries";
+import { MUTATIONS, QUERIES } from "~/server/db/queries";
 
 const f = createUploadthing();
 
